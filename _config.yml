@@ -1,0 +1,27 @@
+# Site Settings
+title: V Embedded LLC
+description: Embedded hardware and software developer.
+url: "https://www.vembedded.com"
+baseurl: "/"
+author: "EV"
+email: "info@vembedded.com"
+
+year: 2024
+company: "V Embedded LLC"
+
+plugins:
+  - jekyll-seo-tag
+
+seo:
+  title: "V Embedded LLC"
+  description: "Embedded hardware and software developer."
+  url: "https://www.vembedded.com"
+  image: "/assets/images/logo.svg"
+
+
+collections:
+  faqs:
+    output: false
+  products:
+    output: true 
+    permalink: /products/:name/ 
