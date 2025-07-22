@@ -1,0 +1,23 @@
+main:
+  - title: Home
+    url: /
+
+  - title: About
+    url: /about/
+
+  - title: More
+    dropdown: true
+    items:
+      - title: Blog
+        url: /blog/
+      - title: Projects
+        url: /projects/
+      - divider: true
+      - title: GitHub
+        url: https://github.com/YOUR_GITHUB
+        external: true
+
+right:
+  - title: Contact
+    url: /contact/
+    style: outline-light  # Optional: Bootstrap button style
