@@ -15,9 +15,9 @@ plugins:
 
 seo:
   title: "V Embedded LLC"
-  description: "Embedded hardware and software developer."
+  description: "Custom embedded systems design, firmware development, and hardware prototyping for connected devices and IoT solutions."
   url: "https://www.vembedded.com"
-  image: "/assets/images/logo.svg"
+  image: "https://www.vembedded.com/assets/images/logo.svg"
 
 exclude:
   - Gemfile
