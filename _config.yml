@@ -29,3 +29,7 @@ sass:
   load_paths:
     - node_modules
   style: compressed
+
+collections:
+  products:
+    output: true
