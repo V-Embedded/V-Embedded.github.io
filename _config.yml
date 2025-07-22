@@ -6,10 +6,11 @@ baseurl: "/"
 author: "EV"
 email: "info@vembedded.com"
 
-year: 2024
+year: 2025
 company: "V Embedded LLC"
 
 plugins:
+  - jekyll-feed
   - jekyll-seo-tag
 
 seo:
@@ -18,10 +19,13 @@ seo:
   url: "https://www.vembedded.com"
   image: "/assets/images/logo.svg"
 
+exclude:
+  - Gemfile
+  - Gemfile.lock
+  - node_modules
+  - vendor
 
-collections:
-  faqs:
-    output: false
-  products:
-    output: true 
-    permalink: /products/:name/ 
+sass:
+  load_paths:
+    - node_modules
+  style: compressed

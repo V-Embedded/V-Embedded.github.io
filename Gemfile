@@ -1,8 +1,8 @@
-# frozen_string_literal: true
-
 source "https://rubygems.org"
 
-# gem "rails"
-gem "jekyll"
-gem 'bootstrap', '~> 5.3.3'
-gem 'jekyll-seo-tag'
+gem "jekyll", "~> 4.3.3"
+
+group :jekyll_plugins do
+  gem "jekyll-feed"
+  gem "jekyll-seo-tag"
+end
