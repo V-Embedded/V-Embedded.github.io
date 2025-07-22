@@ -64,4 +64,4 @@ npm install bootstrap
 |                                                |
 |       https://www.vembedded.com                |
 +------------------------------------------------+
-
+Follow ideal dimensions: 1200×630 px (JPEG or PNG)
