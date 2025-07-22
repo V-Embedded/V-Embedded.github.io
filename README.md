@@ -1,7 +1,10 @@
-Create a gh-pages branch (first time only)
-Only do this once:
+## 🚀 One-Time Setup for GitHub Pages Deployment
 
+### ✅ 1. Create a `gh-pages` branch (first time only)
 
+> Only do this once:
+
+```bash
 git checkout --orphan gh-pages
 git rm -rf .
 touch .nojekyll   # prevents GitHub Pages from ignoring folders like _assets/
@@ -9,38 +12,45 @@ git add .nojekyll
 git commit -m "Initialize gh-pages"
 git push origin gh-pages
 git checkout main
+```
 
+---
 
-4. ✅ Configure GitHub Pages
-In your GitHub repo → Settings → Pages:
+### ✅ 2. Configure GitHub Pages
 
-Source: gh-pages
+In your GitHub repo:
 
-Folder: / (root)
+- Go to **Settings** → **Pages**
+- **Source**: `gh-pages`
+- **Folder**: `/ (root)`
 
+---
 
+### ✅ 3. Save Your Deployment Script
 
-Save as deploy.sh in your project root.
+Save the deployment script as `deploy.sh` in your project root.
 
-Make executable:
+Make it executable:
 
-bash
-
+```bash
 chmod +x deploy.sh
+```
 
-Deploy anytime with:
+Then deploy anytime with:
 
-bash
-
+```bash
 ./deploy.sh
+```
 
+---
 
-✅ 1. Install Bootstrap Sass via npm or yarn
+## 🎨 4. Install Bootstrap Sass via npm or yarn
+
 You’ll need to pull in Bootstrap’s Sass source files.
 
-Option A: Using npm
-bash
-Copy
-Edit
+### Option A: Using npm
+
+```bash
 npm init -y
 npm install bootstrap
+```
