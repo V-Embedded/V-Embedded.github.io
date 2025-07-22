@@ -1,0 +1,23 @@
+{
+  "name": "vembedded.github.io",
+  "version": "1.0.0",
+  "description": "Create a gh-pages branch (first time only)\r Only do this once:",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/VEmbedded/VEmbedded.github.io.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/VEmbedded/VEmbedded.github.io/issues"
+  },
+  "homepage": "https://github.com/VEmbedded/VEmbedded.github.io#readme",
+  "dependencies": {
+    "bootstrap": "^5.3.7"
+  }
+}
