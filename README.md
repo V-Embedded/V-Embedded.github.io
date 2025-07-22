@@ -54,3 +54,14 @@ You’ll need to pull in Bootstrap’s Sass source files.
 npm init -y
 npm install bootstrap
 ```
+
++------------------------------------------------+
+|                                                |
+|         [ V Embedded LLC Logo ]                |
+|                                                |
+|      Embedded Systems & Firmware Design        |
+|     Connected Devices • IoT • Prototyping      |
+|                                                |
+|       https://www.vembedded.com                |
++------------------------------------------------+
+
