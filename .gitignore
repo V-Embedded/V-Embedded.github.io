@@ -1,4 +1,5 @@
 node_modules/
+_site/
 vendor/
 .sass-cache/
 .jekyll-cache/
@@ -6,3 +7,5 @@ vendor/
 *.tmp
 Gemfile.lock
 package-lock.json
+deploy.sh
+
