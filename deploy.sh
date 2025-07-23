@@ -29,7 +29,7 @@ git rm -rf . > /dev/null || true
 
 # === Restore .gitignore to ignore unneeded files ===
 echo "📄 Restoring or creating .gitignore..."
-echo -e "node_modules/\nvendor/\n.sass-cache/\n*.log\n*.tmp\n" > .gitignore
+echo -e "node_modules/\n_site/\nvendor/\n.sass-cache/\n.jekyll-cache/\n*.log\n*.tmp\nGemfile.lock\npackage-lock.json\n" > .gitignore
 git add .gitignore
 
 echo "📁 Copying built site to root (including hidden files)..."
