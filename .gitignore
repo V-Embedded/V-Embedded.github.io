@@ -1,0 +1,8 @@
+node_modules/
+vendor/
+.sass-cache/
+.jekyll-cache/
+*.log
+*.tmp
+Gemfile.lock
+package-lock.json
