@@ -3,15 +3,9 @@
   "version": "1.0.4",
   "private": true,
   "scripts": {
-    "dev": "npm run build:css && bundle exec jekyll serve --host 0.0.0.0 --port 4000 --baseurl ''",
-    "build": "npm run build:css && bundle exec jekyll build -d _site",
-    "build:css": "tailwindcss --input assets/tailwind.css --output assets/styles.css --minify",
-    "start": "npm run dev",
-    "jekyll:doctor": "bundle exec jekyll doctor",
-    "validate-content": "node scripts/validate-content.js",
-    "doctor": "npm run validate-content && npm run jekyll:doctor",
-    "proof": "bundle exec htmlproofer _site --assume-extension --check-html --disable-external",
-    "version:bump": "node scripts/bump-site-version.js"
+    "dev": "tailwindcss --input assets/tailwind.css --output assets/styles.css --minify && bundle exec jekyll serve --host 0.0.0.0 --port 4000 --baseurl ''",
+    "build": "tailwindcss --input assets/tailwind.css --output assets/styles.css --minify && bundle exec jekyll build -d _site",
+    "release": "node scripts/release.js"
   },
   "repository": {
     "type": "git",
