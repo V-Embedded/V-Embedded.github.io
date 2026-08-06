@@ -1,3 +1,59 @@
+# Content editing: products & tutorials
+
+This site reads products from `data/products.json` and tutorials from markdown files in `content/tutorials/`.
+
+Add or edit products
+
+- Open `data/products.json` and add an object with:
+  - `slug` (unique, used in URLs),
+  - `name`,
+  - `category`,
+  - `summary`,
+  - `description`,
+  - optional `highlights` (array of strings).
+
+Example entry:
+
+```
+{
+  "slug": "my-product",
+  "name": "My Product",
+  "category": "Board",
+  "summary": "Short summary",
+  "description": "Full description",
+  "highlights": ["Feature A", "Feature B"]
+}
+```
+
+Add or edit tutorials
+
+- Create a markdown file in `content/tutorials/` named `your-slug.md`.
+- Include frontmatter at the top with `title` and optional `description`:
+
+```
+---
+title: My Tutorial
+description: Short summary
+---
+
+Your markdown content here.
+```
+
+Validation
+
+- Run content validation to catch missing fields and duplicate slugs:
+
+```bash
+npm run validate-content
+```
+
+Build / develop
+
+```bash
+npm install
+npm run dev
+npm run build
+```
 # V Embedded LLC Website
 
 A modern Next.js and Tailwind CSS site for V Embedded LLC, designed for educational embedded hardware content and hosted on GitHub Pages.

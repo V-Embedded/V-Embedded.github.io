@@ -1,19 +1,9 @@
-const guides = [
-  {
-    title: 'Getting started with embedded C',
-    description: 'A practical introduction to setup, compilation, and hardware communication.',
-  },
-  {
-    title: 'Building your first sensor dashboard',
-    description: 'Learn to collect readings, visualize trends, and present data clearly.',
-  },
-  {
-    title: 'Teaching real-time systems in the classroom',
-    description: 'Use structured lab activities and simple examples to introduce timing concepts.',
-  },
-];
+import Link from 'next/link';
+import { getTutorials } from '../../lib/content';
 
 export default function TutorialsPage() {
+  const guides = getTutorials();
+
   return (
     <div className="mx-auto max-w-7xl px-6 py-16 lg:px-8">
       <div className="mb-10">
@@ -23,8 +13,10 @@ export default function TutorialsPage() {
       </div>
       <div className="space-y-4">
         {guides.map((guide) => (
-          <article key={guide.title} className="rounded-2xl border border-white/10 bg-primary/60 p-6 shadow-soft">
-            <h2 className="text-xl font-semibold text-white">{guide.title}</h2>
+          <article key={guide.slug} className="rounded-2xl border border-white/10 bg-primary/60 p-6 shadow-soft">
+            <h2 className="text-xl font-semibold text-white">
+              <Link href={`/tutorials/${guide.slug}`} className="text-accent hover:text-success">{guide.title}</Link>
+            </h2>
             <p className="mt-3 text-sm leading-7 text-info/70">{guide.description}</p>
           </article>
         ))}
