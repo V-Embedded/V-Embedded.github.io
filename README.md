@@ -50,8 +50,10 @@ When changes are pushed or merged into `main`, GitHub Actions:
 2. Commits the updated version files back to `main` with `[skip ci]`.
 3. Runs the pre-deploy checks.
 4. Builds the production site into `_site`.
-5. Publishes the generated site to the `gh-pages` branch.
+5. Publishes the generated site to the root of the `gh-pages` branch.
 6. Refreshes the `devel` branch from the updated `main`.
+
+In the repository's GitHub Pages settings, set **Build and deployment** to **Deploy from a branch**, then select the `gh-pages` branch and the `/(root)` folder. The published URL is `https://v-embedded.github.io`.
 
 ## Site Version
 

@@ -8,8 +8,6 @@ name: Validate and Deploy
 
 permissions:
   contents: write
-  pages: write
-  id-token: write
 
 concurrency:
   group: site-deployment-${{ github.ref }}
@@ -21,12 +19,12 @@ jobs:
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
       - name: Setup Node.js
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v5
         with:
-          node-version: 20
+          node-version: 24
           cache: npm
 
       - name: Install npm dependencies
@@ -54,20 +52,17 @@ jobs:
     if: github.event_name == 'push' && github.ref == 'refs/heads/main'
     needs: verify
     runs-on: ubuntu-latest
-    environment:
-      name: github-pages
-      url: ${{ steps.deploy.outputs.page_url }}
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Setup Node.js
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v5
         with:
-          node-version: 20
+          node-version: 24
           cache: npm
 
       - name: Install npm dependencies
@@ -100,14 +95,19 @@ jobs:
       - name: Verify build artifact
         run: test -f _site/index.html
 
-      - name: Upload site artifact
-        uses: actions/upload-pages-artifact@v3
-        with:
-          path: ./_site
-
-      - name: Deploy to GitHub Pages
-        id: deploy
-        uses: actions/deploy-pages@v4
+      - name: Publish site to gh-pages
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git fetch origin +gh-pages:refs/remotes/origin/gh-pages
+          git worktree add --detach ../gh-pages origin/gh-pages
+          cd ../gh-pages
+          find . -mindepth 1 -maxdepth 1 ! -name .git -exec rm -rf {} +
+          cp -a "$GITHUB_WORKSPACE/_site/." .
+          touch .nojekyll
+          git add --all
+          git commit -m "deploy: ${GITHUB_SHA}" || exit 0
+          git push origin HEAD:gh-pages
 
       - name: Refresh devel branch
         run: git push --force origin HEAD:devel

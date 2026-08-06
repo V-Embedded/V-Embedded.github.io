@@ -10,7 +10,7 @@
     "jekyll:doctor": "bundle exec jekyll doctor",
     "validate-content": "node scripts/validate-content.js",
     "doctor": "npm run validate-content && npm run jekyll:doctor",
-    "proof": "bundle exec htmlproofer _site --assume-extension --check-html --disable-external --url-swap '^/V-Embedded\\.github\\.io/:/'",
+    "proof": "bundle exec htmlproofer _site --assume-extension --check-html --disable-external",
     "version:bump": "node scripts/bump-site-version.js"
   },
   "repository": {
