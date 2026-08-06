@@ -1,6 +1,8 @@
 ---
-title: Getting started with embedded C
-description: A practical introduction to setup, compilation, and hardware communication.
+layout: post
+title: "Getting started with embedded C"
+description: "A practical introduction to setup, compilation, and hardware communication."
+date: 2026-08-05 09:00:00 -0000
 ---
 
 This guide walks you through setting up a simple embedded C toolchain, flashing your first program, and reading a GPIO pin.

@@ -2,26 +2,31 @@ const fs = require('fs');
 const path = require('path');
 
 const root = process.cwd();
-const dataFile = path.join(root, 'data', 'products.json');
-const tutorialsDir = path.join(root, 'content', 'tutorials');
+const productsDir = path.join(root, '_products');
+const postsDir = path.join(root, '_posts');
 
 function fail(msg) {
   console.error('Validation error:', msg);
   process.exitCode = 1;
 }
 
-function validateProducts() {
-  if (!fs.existsSync(dataFile)) return;
-  const raw = fs.readFileSync(dataFile, 'utf8');
-  let products;
-  try { products = JSON.parse(raw); } catch (e) { fail('data/products.json is not valid JSON'); return; }
+function validateMarkdownDirectory(directory, requiredFields, label) {
+  if (!fs.existsSync(directory)) {
+    fail(`${label} directory is missing`);
+    return;
+  }
+
+  const files = fs.readdirSync(directory).filter((file) => file.endsWith('.md'));
   const seen = new Set();
-  products.forEach((p, i) => {
-    if (!p.slug) fail(`Product at index ${i} missing slug`);
-    if (!p.name) fail(`Product at index ${i} missing name`);
-    if (!p.category) fail(`Product ${p.slug || i} missing category`);
-    if (seen.has(p.slug)) fail(`Duplicate product slug: ${p.slug}`);
-    seen.add(p.slug);
+  files.forEach((file) => {
+    const raw = fs.readFileSync(path.join(directory, file), 'utf8');
+    const data = parseFrontMatter(raw);
+    requiredFields.forEach((field) => {
+      if (!data[field]) fail(`${label} ${file} missing frontmatter ${field}`);
+    });
+    const slug = data.slug || file.replace(/\.md$/, '');
+    if (seen.has(slug)) fail(`Duplicate ${label.toLowerCase()} slug: ${slug}`);
+    seen.add(slug);
   });
 }
 
@@ -42,23 +47,9 @@ function parseFrontMatter(raw) {
   return data;
 }
 
-function validateTutorials() {
-  if (!fs.existsSync(tutorialsDir)) return;
-  const files = fs.readdirSync(tutorialsDir).filter((f) => f.endsWith('.md'));
-  const seen = new Set();
-  files.forEach((file) => {
-    const raw = fs.readFileSync(path.join(tutorialsDir, file), 'utf8');
-    const data = parseFrontMatter(raw);
-    const slug = file.replace(/\.md$/, '');
-    if (!data.title) fail(`Tutorial ${slug} missing frontmatter title`);
-    if (seen.has(slug)) fail(`Duplicate tutorial slug: ${slug}`);
-    seen.add(slug);
-  });
-}
-
 function run() {
-  validateProducts();
-  validateTutorials();
+  validateMarkdownDirectory(productsDir, ['title', 'name', 'category', 'summary', 'description'], 'Product');
+  validateMarkdownDirectory(postsDir, ['title', 'date'], 'Tutorial');
   if (process.exitCode === 1) {
     console.error('Content validation failed');
     process.exit(1);

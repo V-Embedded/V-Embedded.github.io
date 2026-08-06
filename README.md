@@ -1,120 +1,83 @@
-# Content editing: products & tutorials
+# V EMBEDDED Website
 
-This site reads products from `data/products.json` and tutorials from markdown files in `content/tutorials/`.
+Jekyll website for V EMBEDDED, built locally with Bundler/npm and deployed automatically with GitHub Actions.
 
-Add or edit products
-
-- Open `data/products.json` and add an object with:
-  - `slug` (unique, used in URLs),
-  - `name`,
-  - `category`,
-  - `summary`,
-  - `description`,
-  - optional `highlights` (array of strings).
-
-Example entry:
-
-```
-{
-  "slug": "my-product",
-  "name": "My Product",
-  "category": "Board",
-  "summary": "Short summary",
-  "description": "Full description",
-  "highlights": ["Feature A", "Feature B"]
-}
-```
-
-Add or edit tutorials
-
-- Create a markdown file in `content/tutorials/` named `your-slug.md`.
-- Include frontmatter at the top with `title` and optional `description`:
-
-```
----
-title: My Tutorial
-description: Short summary
----
-
-Your markdown content here.
-```
-
-Validation
-
-- Run content validation to catch missing fields and duplicate slugs:
+## Local Setup
 
 ```bash
-npm run validate-content
-```
-
-Build / develop
-
-```bash
+git clone https://github.com/V-Embedded/V-Embedded.github.io
+cd V-Embedded.github.io
 npm install
-npm run dev
-npm run build
-```
-# V Embedded LLC Website
-
-A modern Next.js and Tailwind CSS site for V Embedded LLC, designed for educational embedded hardware content and hosted on GitHub Pages.
-
-## Tech stack
-- Next.js 14 (App Router)
-- Tailwind CSS
-- Static export for GitHub Pages
-
-## Local development
-
-Install dependencies:
-
-```bash
-npm install
+bundle install
 ```
 
-Start the development server:
+## Develop Locally
 
 ```bash
 npm run dev
 ```
 
-The site will be available at http://localhost:3000.
+Open http://localhost:4000 in your browser.
 
-## Production build
+## Local Checks
 
-Build the static export:
-
-```bash
-npm run build
-```
-
-The generated site output will be written to the [site](site) directory.
-
-## Deployment to GitHub Pages
-
-This project uses GitHub Actions to build and deploy the site automatically.
-
-### GitHub Pages setup
-1. Go to your repository settings.
-2. Open Pages.
-3. Set the source to the gh-pages branch.
-4. Use the root folder for the published site.
-
-### Automatic deployment
-Push changes to the main branch and the workflow in [.github/workflows/deploy.yml](.github/workflows/deploy.yml) will:
-- install dependencies
-- run the production build
-- publish the contents of [site](site) to the gh-pages branch
-
-### Manual deployment
-If you need to publish manually, you can run:
+Run the same checks used before deployment:
 
 ```bash
+npm run doctor
 npm run build
+npm run proof
 ```
 
-Then push the generated contents of [site](site) to the gh-pages branch.
+`npm run proof` runs HTMLProofer against `_site` after a build. External links are disabled, so the check focuses on generated HTML, internal links, images, scripts, and HTTPS enforcement.
 
-## Project structure
-- [app](app) contains the App Router pages and layouts
-- [public](public) can be used for static assets if needed
-- [site](site) is the generated static export output
+## Deployment
+
+Deployment is handled by `.github/workflows/ci.yml`. Do not deploy manually.
+
+When a pull request targets `main`, GitHub Actions runs:
+
+```bash
+npm run doctor
+npm run build
+npm run proof
+
+```
+
+When changes are pushed or merged into `main`, GitHub Actions:
+
+1. Increments the patch site version.
+2. Commits the updated version files back to `main` with `[skip ci]`.
+3. Runs the pre-deploy checks.
+4. Builds the production site into `_site`.
+5. Publishes the generated site to the `gh-pages` branch.
+6. Refreshes the `devel` branch from the updated `main`.
+
+## Site Version
+
+The site version is stored in:
+
+- `package.json`
+- `package-lock.json`
+- `_data/site_version.yml`
+
+The footer displays the version from `_data/site_version.yml`. On every normal push or merge to `main`, the workflow increments the patch version automatically.
+
+To bump the version manually for testing:
+
+```bash
+npm run version:bump
+```
+
+Only commit a manual version bump if you intentionally want to change the displayed site version outside the deployment workflow.
+
+## Publishing Changes
+
+```bash
+git status
+git add .
+git commit -m "Describe the change"
+git push origin main
+```
+
+After the push, check the GitHub Actions run for deployment status.

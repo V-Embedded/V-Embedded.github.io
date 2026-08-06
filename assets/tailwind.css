@@ -1,0 +1,44 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply min-h-screen bg-primary text-info antialiased;
+    font-family: ui-sans-serif, system-ui, sans-serif;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-semibold text-success;
+  }
+
+  a {
+    @apply text-accent hover:text-success;
+  }
+}
+
+@layer components {
+  header, footer, main {
+    @apply mx-auto w-full max-w-5xl px-6;
+  }
+
+  header {
+    @apply border-b border-secondary py-5;
+  }
+
+  main {
+    @apply py-10;
+  }
+
+  footer {
+    @apply border-t border-secondary py-6 text-sm text-info;
+  }
+
+  article {
+    @apply mb-8 border-b border-secondary pb-8;
+  }
+
+  article p, article li {
+    @apply leading-7;
+  }
+}

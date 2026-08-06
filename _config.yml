@@ -1,0 +1,31 @@
+title: V Embedded
+description: Embedded systems education and products
+baseurl: "/V-Embedded.github.io"
+url: "https://VEmbedded.github.io"
+markdown: kramdown
+theme: minima
+plugins:
+  - jekyll-feed
+  - jekyll-seo-tag
+
+collections:
+  products:
+    output: true
+    permalink: /products/:name/
+  pages:
+    output: true
+
+defaults:
+  - scope:
+      path: ""
+      type: posts
+    values:
+      permalink: /tutorials/:title/
+
+exclude:
+  - node_modules
+  - site
+  - .github
+  - scripts
+
+permalink: /:categories/:title/
