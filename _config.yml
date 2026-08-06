@@ -24,6 +24,7 @@ defaults:
 
 exclude:
   - node_modules
+  - vendor
   - site
   - .github
   - scripts

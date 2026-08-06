@@ -1,4 +1,5 @@
 node_modules/
+vendor/
 _site/
 .jekyll-cache/
 .jekyll-metadata

@@ -36,12 +36,17 @@ jobs:
           ruby-version: '3.2'
           bundler-cache: true
 
-      - name: Run checks
-        run: |
-          npm run doctor
-          npm run build
-          npm run proof
-          test -f _site/index.html
+      - name: Run doctor
+        run: npm run doctor
+
+      - name: Build site
+        run: npm run build
+
+      - name: Proof generated site
+        run: npm run proof
+
+      - name: Verify build artifact
+        run: test -f _site/index.html
 
   deploy:
     if: github.event_name == 'push' && github.ref == 'refs/heads/main'
@@ -78,12 +83,17 @@ jobs:
           git commit -m "chore: bump site version [skip ci]"
           git push origin HEAD:main
 
-      - name: Run checks
-        run: |
-          npm run doctor
-          npm run build
-          npm run proof
-          test -f _site/index.html
+      - name: Run doctor
+        run: npm run doctor
+
+      - name: Build site
+        run: npm run build
+
+      - name: Proof generated site
+        run: npm run proof
+
+      - name: Verify build artifact
+        run: test -f _site/index.html
 
       - name: Publish to gh-pages
         uses: peaceiris/actions-gh-pages@v4
