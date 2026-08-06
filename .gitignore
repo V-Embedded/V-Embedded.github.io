@@ -30,5 +30,3 @@ Thumbs.db
 *.tmp
 *.bak
 
-# Optional package manager lockfiles
-package-lock.json
