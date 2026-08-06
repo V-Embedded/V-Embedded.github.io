@@ -1,7 +1,7 @@
 title: V Embedded
 description: Embedded systems education and products
 baseurl: ""
-url: "https://v-embedded.github.io"
+url: "https://www.vembedded.com"
 markdown: kramdown
 theme: minima
 plugins:
@@ -25,7 +25,6 @@ defaults:
 exclude:
   - node_modules
   - vendor
-  - site
   - .github
   - scripts
 

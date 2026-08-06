@@ -11,5 +11,3 @@ highlights:
   - Project-ready sample code
 layout: product
 ---
-
-{{ page.description }}

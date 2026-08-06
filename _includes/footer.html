@@ -1,4 +1,12 @@
-<footer>
-  <p>&copy; {{ site.time | date: '%Y' }} {{ site.title }}</p>
-  <p>Site version {{ site.data.site_version.version }}</p>
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div>
+      <a href="{{ '/' | relative_url }}" class="footer-brand">V EMBEDDED</a>
+      <p>Practical learning for the systems that power the world.</p>
+    </div>
+    <div class="footer-meta">
+      <p>&copy; {{ site.time | date: '%Y' }} {{ site.title | upcase }}</p>
+      <p>Site version {{ site.data.site_version.version }}</p>
+    </div>
+  </div>
 </footer>

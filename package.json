@@ -5,6 +5,7 @@
   "scripts": {
     "dev": "tailwindcss --input assets/tailwind.css --output assets/styles.css --minify && bundle exec jekyll serve --host 0.0.0.0 --port 4000 --baseurl ''",
     "build": "tailwindcss --input assets/tailwind.css --output assets/styles.css --minify && bundle exec jekyll build -d _site",
+    "clean": "rm -rf _site .jekyll-cache .jekyll-metadata assets/styles.css",
     "release": "node scripts/release.js"
   },
   "repository": {

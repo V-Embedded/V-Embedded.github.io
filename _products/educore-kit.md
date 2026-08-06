@@ -11,5 +11,3 @@ highlights:
   - Beginner-friendly firmware docs
 layout: product
 ---
-
-{{ page.description }}

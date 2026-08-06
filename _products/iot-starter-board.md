@@ -11,5 +11,3 @@ highlights:
   - Simple deployment examples
 layout: product
 ---
-
-{{ page.description }}

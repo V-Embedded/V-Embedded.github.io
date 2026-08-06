@@ -2,10 +2,11 @@
 layout: default
 ---
 
-<article>
-  <p>{{ page.category }}</p>
+<article class="article-card product-article">
+  <a class="back-link" href="{{ '/products/' | relative_url }}"><span aria-hidden="true">&larr;</span> All products</a>
+  <p class="card-label">{{ page.category }}</p>
   <h1>{{ page.name }}</h1>
-  <p>{{ page.description }}</p>
+  <p class="article-lede">{{ page.description }}</p>
   {% if page.highlights %}
     <h2>Highlights</h2>
     <ul>
