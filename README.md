@@ -1,67 +1,64 @@
-## 🚀 One-Time Setup for GitHub Pages Deployment
+# V Embedded LLC Website
 
-### ✅ 1. Create a `gh-pages` branch (first time only)
+A modern Next.js and Tailwind CSS site for V Embedded LLC, designed for educational embedded hardware content and hosted on GitHub Pages.
 
-> Only do this once:
+## Tech stack
+- Next.js 14 (App Router)
+- Tailwind CSS
+- Static export for GitHub Pages
 
-```bash
-git checkout --orphan gh-pages
-git rm -rf .
-touch .nojekyll   # prevents GitHub Pages from ignoring folders like _assets/
-git add .nojekyll
-git commit -m "Initialize gh-pages"
-git push origin gh-pages
-git checkout main
-```
+## Local development
 
----
-
-### ✅ 2. Configure GitHub Pages
-
-In your GitHub repo:
-
-- Go to **Settings** → **Pages**
-- **Source**: `gh-pages`
-- **Folder**: `/ (root)`
-
----
-
-### ✅ 3. Save Your Deployment Script
-
-Save the deployment script as `deploy.sh` in your project root.
-
-Make it executable:
+Install dependencies:
 
 ```bash
-chmod +x deploy.sh
+npm install
 ```
 
-Then deploy anytime with:
+Start the development server:
 
 ```bash
-./deploy.sh
+npm run dev
 ```
 
----
+The site will be available at http://localhost:3000.
 
-## 🎨 4. Install Bootstrap Sass via npm or yarn
+## Production build
 
-You’ll need to pull in Bootstrap’s Sass source files.
-
-### Option A: Using npm
+Build the static export:
 
 ```bash
-npm init -y
-npm install bootstrap
+npm run build
 ```
 
-+------------------------------------------------+
-|                                                |
-|         [ V Embedded LLC Logo ]                |
-|                                                |
-|      Embedded Systems & Firmware Design        |
-|     Connected Devices • IoT • Prototyping      |
-|                                                |
-|       https://www.vembedded.com                |
-+------------------------------------------------+
-Follow ideal dimensions: 1200×630 px (JPEG or PNG)
+The generated site output will be written to the [site](site) directory.
+
+## Deployment to GitHub Pages
+
+This project uses GitHub Actions to build and deploy the site automatically.
+
+### GitHub Pages setup
+1. Go to your repository settings.
+2. Open Pages.
+3. Set the source to the gh-pages branch.
+4. Use the root folder for the published site.
+
+### Automatic deployment
+Push changes to the main branch and the workflow in [.github/workflows/deploy.yml](.github/workflows/deploy.yml) will:
+- install dependencies
+- run the production build
+- publish the contents of [site](site) to the gh-pages branch
+
+### Manual deployment
+If you need to publish manually, you can run:
+
+```bash
+npm run build
+```
+
+Then push the generated contents of [site](site) to the gh-pages branch.
+
+## Project structure
+- [app](app) contains the App Router pages and layouts
+- [public](public) can be used for static assets if needed
+- [site](site) is the generated static export output
