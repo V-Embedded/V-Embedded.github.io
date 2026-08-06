@@ -1,113 +1,137 @@
-name: Validate and Deploy
+name: CI/CD
 
 'on':
   pull_request:
-    branches: [main]
+    branches:
+      - main
   push:
-    branches: [main]
+    branches:
+      - main
 
 permissions:
-  contents: write
+  contents: read
 
 concurrency:
-  group: site-deployment-${{ github.ref }}
-  cancel-in-progress: false
+  group: site-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  JEKYLL_ENV: production
 
 jobs:
-  verify:
+  quality:
+    if: ${{ github.event_name == 'pull_request' }}
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v5
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v5
+        uses: actions/checkout@v4
         with:
-          node-version: 24
-          cache: npm
+          fetch-depth: 0
 
-      - name: Install npm dependencies
-        run: npm ci
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
 
-      - name: Setup Ruby
+      - name: Set up Ruby
         uses: ruby/setup-ruby@v1
         with:
-          ruby-version: '3.2'
           bundler-cache: true
 
-      - name: Run doctor
+      - name: Run Jekyll doctor
         run: npm run doctor
 
       - name: Build site
         run: npm run build
 
-      - name: Proof generated site
+      - name: Run HTMLProofer
         run: npm run proof
 
       - name: Verify build artifact
         run: test -f _site/index.html
 
   deploy:
-    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
-    needs: verify
+    if: ${{ github.event_name == 'push' }}
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v5
+        uses: actions/checkout@v4
         with:
-          token: ${{ secrets.GITHUB_TOKEN }}
+          fetch-depth: 0
 
-      - name: Setup Node.js
-        uses: actions/setup-node@v5
+      - name: Set up Node
+        uses: actions/setup-node@v4
         with:
-          node-version: 24
-          cache: npm
+          node-version: 20
 
-      - name: Install npm dependencies
-        run: npm ci
-
-      - name: Setup Ruby
+      - name: Set up Ruby
         uses: ruby/setup-ruby@v1
         with:
-          ruby-version: '3.2'
           bundler-cache: true
 
-      - name: Bump and commit site version
+      - name: Configure Git author
         run: |
-          npm run version:bump
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add package.json package-lock.json _data/site_version.yml
-          git commit -m "chore: bump site version [skip ci]"
-          git push origin HEAD:main
 
-      - name: Run doctor
+      - name: Bump site version
+        if: ${{ !contains(github.event.head_commit.message, '[skip ci]') }}
+        run: |
+          NEXT_VERSION="$(npm run version:bump --silent)"
+          git add package.json package-lock.json _data/site_version.yml
+
+          if git diff --cached --quiet; then
+            echo "No version files changed."
+          else
+            git commit -m "Bump site version to v${NEXT_VERSION} [skip ci]"
+            git push origin HEAD:main
+          fi
+
+      - name: Run Jekyll doctor
         run: npm run doctor
 
       - name: Build site
         run: npm run build
 
-      - name: Proof generated site
+      - name: Run HTMLProofer
         run: npm run proof
 
       - name: Verify build artifact
         run: test -f _site/index.html
 
-      - name: Publish site to gh-pages
+      - name: Deploy to gh-pages
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git fetch origin +gh-pages:refs/remotes/origin/gh-pages
-          git worktree add --detach ../gh-pages origin/gh-pages
-          cd ../gh-pages
-          find . -mindepth 1 -maxdepth 1 ! -name .git -exec rm -rf {} +
-          cp -a "$GITHUB_WORKSPACE/_site/." .
-          touch .nojekyll
-          git add --all
-          git commit -m "deploy: ${GITHUB_SHA}" || exit 0
-          git push origin HEAD:gh-pages
+          DEPLOY_SHA="$(git rev-parse --short HEAD)"
+          DEPLOY_DIR="$(mktemp -d)"
 
-      - name: Refresh devel branch
-        run: git push --force origin HEAD:devel
+          cp -a _site/. "$DEPLOY_DIR/"
+          cat > "$DEPLOY_DIR/.gitignore" <<'GITIGNORE'
+          node_modules/
+          _site/
+          vendor/
+          .jekyll-cache/
+          *.log
+          *.tmp
+          Gemfile.lock
+          GITIGNORE
+          touch "$DEPLOY_DIR/.nojekyll"
+
+          git -C "$DEPLOY_DIR" init
+          git -C "$DEPLOY_DIR" config user.name "github-actions[bot]"
+          git -C "$DEPLOY_DIR" config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git -C "$DEPLOY_DIR" checkout -b gh-pages
+          git -C "$DEPLOY_DIR" add .
+          git -C "$DEPLOY_DIR" commit -m "Deploy site from ${DEPLOY_SHA}"
+          git -C "$DEPLOY_DIR" remote add origin "https://x-access-token:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git"
+          git -C "$DEPLOY_DIR" push --force origin gh-pages
+
+      - name: Refresh devel from main
+        run: git push origin HEAD:devel --force
