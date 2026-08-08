@@ -67,6 +67,7 @@ function release() {
   run('node', ['scripts/bump-site-version.js']);
   const version = packageVersion();
   const tag = `v${version}`;
+  run('npm', ['run', 'build']);
 
   run('git', ['add', 'package.json', 'package-lock.json', '_data/site_version.yml']);
   run('git', ['commit', '-m', `Release ${tag}`]);
