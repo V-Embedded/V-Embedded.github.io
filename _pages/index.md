@@ -15,7 +15,7 @@ permalink: /
     </div>
   </div>
   <div class="hero-visual" aria-hidden="true">
-    <img src="{{ '/assets/images/logo.svg' | relative_url }}" alt="">
+    <img src="{{ '/assets/images/logo.svg' | relative_url }}" alt="V Embedded logo">
     <span class="signal signal-one"></span>
     <span class="signal signal-two"></span>
     <span class="signal signal-three"></span>
