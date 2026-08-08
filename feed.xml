@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.10.0">Jekyll</generator><link href="https://www.vembedded.com/feed.xml" rel="self" type="application/atom+xml" /><link href="https://www.vembedded.com/" rel="alternate" type="text/html" /><updated>2026-08-07T18:57:19-07:00</updated><id>https://www.vembedded.com/feed.xml</id><title type="html">V Embedded</title><subtitle>Embedded systems education and products</subtitle><entry><title type="html">Building your first sensor dashboard</title><link href="https://www.vembedded.com/tutorials/building-your-first-sensor-dashboard/" rel="alternate" type="text/html" title="Building your first sensor dashboard" /><published>2026-08-06T02:00:00-07:00</published><updated>2026-08-06T02:00:00-07:00</updated><id>https://www.vembedded.com/tutorials/building-your-first-sensor-dashboard</id><content type="html" xml:base="https://www.vembedded.com/tutorials/building-your-first-sensor-dashboard/"><![CDATA[<p>This tutorial shows how to collect sensor readings, push them to a simple backend, and render a dashboard with charts.</p>
+
+<p>Steps include:</p>
+
+<ol>
+  <li>Wiring sensors</li>
+  <li>Reading values</li>
+  <li>Posting to a server</li>
+</ol>]]></content><author><name></name></author><summary type="html"><![CDATA[Learn to collect readings, visualize trends, and present data clearly.]]></summary></entry><entry><title type="html">Getting started with embedded C</title><link href="https://www.vembedded.com/tutorials/getting-started-with-embedded-c/" rel="alternate" type="text/html" title="Getting started with embedded C" /><published>2026-08-05T02:00:00-07:00</published><updated>2026-08-05T02:00:00-07:00</updated><id>https://www.vembedded.com/tutorials/getting-started-with-embedded-c</id><content type="html" xml:base="https://www.vembedded.com/tutorials/getting-started-with-embedded-c/"><![CDATA[<p>This guide walks you through setting up a simple embedded C toolchain, flashing your first program, and reading a GPIO pin.</p>
+
+<h2 id="prerequisites">Prerequisites</h2>
+
+<ul>
+  <li>A supported development board</li>
+  <li>Toolchain (gcc-arm-none-eabi or equivalent)</li>
+</ul>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>// Example: blink.c
+#include &lt;stdint.h&gt;
+int main(void) { return 0; }
+</code></pre></div></div>
+
+<p>More details and sample projects will be added here.</p>]]></content><author><name></name></author><summary type="html"><![CDATA[A practical introduction to setup, compilation, and hardware communication.]]></summary></entry></feed>

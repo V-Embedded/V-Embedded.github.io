@@ -1,0 +1,31 @@
+{
+  "name": "vembedded.github.io",
+  "version": "1.0.5",
+  "private": true,
+  "scripts": {
+    "dev": "tailwindcss --input assets/tailwind.css --output assets/styles.css --minify && bundle exec jekyll serve --host 0.0.0.0 --port 4000 --baseurl ''",
+    "build": "tailwindcss --input assets/tailwind.css --output assets/styles.css --minify && bundle exec jekyll build -d _site",
+    "clean": "rm -rf _site .jekyll-cache .jekyll-metadata assets/styles.css",
+    "release": "node scripts/release.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/VEmbedded/VEmbedded.github.io.git"
+  },
+  "keywords": [
+    "embedded",
+    "education",
+    "jekyll",
+    "tailwindcss"
+  ],
+  "author": "V Embedded LLC",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/VEmbedded/VEmbedded.github.io/issues"
+  },
+  "homepage": "https://github.com/VEmbedded/VEmbedded.github.io#readme",
+  "dependencies": {},
+  "devDependencies": {
+    "tailwindcss": "3.4.16"
+  }
+}
